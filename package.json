@@ -1,0 +1,17 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd ./client && npm start",
+    "backend": "cd ./server && npm start",
+    "dev": "concurrently \"npm run client\" \"npm run backend\""
+  },
+  "keywords": [],
+  "author": "Anderson",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.4.0"
+  }
+}
