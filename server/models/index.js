@@ -29,8 +29,8 @@ db.Sequelize = Sequelize;
 
 //! Relation
 const { User, Social } = db;
-//Social.belongsTo(User);
-User.hasOne(Social);
+User.hasOne(Social, { onDelete: "CASCADE" }); //userId가 Social 테이블에 등록(foreign key 옵션으로 변경가능)
+Social.belongsTo(User, { onDelete: "CASCADE" });
 // const { Resume, User, CompanyLink } = db;
 // Resume.belongsTo(User, {
 //   foreignKey: "user_id", //외래키 등록

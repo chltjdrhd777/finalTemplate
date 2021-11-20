@@ -2,7 +2,7 @@ require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
-const { sequelize } = require("./models");
+const db = require("./models");
 const fs = require("fs");
 const https = require("https");
 const path = require("path");
@@ -58,7 +58,32 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
   });
 }
 
-sequelize
+let user;
+let social;
+
+db.sequelize
   .sync({ force: false, alter: true })
+  .then(() => {
+    //return db.User.create({});
+    return db.User.findOne({ where: { id: 3 } });
+  })
+  .then((data) => {
+    //console.log(data);
+    user = data;
+    //return user.createSocial({ socialType: "kakao", email: "test5@c.a", nickname: "test5" });
+    return db.Social.findOne({ where: { id: 9 } });
+  })
+  .then((data) => {
+    social = data;
+    social.setUser(user);
+  })
   .then(() => console.log("successfully initialized sequelize"))
   .catch((err) => console.log(err));
+
+// db.User.bulkCreate([{}, {}, {}]);
+// db.Social.bulkCreate([
+//   { socialType: "kakao", email: "test1@c.a", nickname: "test1" },
+//   { socialType: "kakao", email: "test2@c.a", nickname: "test2" },
+//   { socialType: "kakao", email: "test3@c.a", nickname: "test3" },
+// ]);
+// return db.User.findOne({ where: { id: 1 } });
