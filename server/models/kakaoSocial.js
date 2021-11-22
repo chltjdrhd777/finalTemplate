@@ -2,16 +2,9 @@
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Social extends Model {}
-  Social.init(
+  class KakaoSocial extends Model {}
+  KakaoSocial.init(
     {
-      socialType: {
-        type: DataTypes.STRING,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       nickname: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -27,9 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Social",
+      modelName: "KakaoSocial",
       freezeTableName: true,
+      timestamps: false,
     }
   );
-  return Social;
+  return KakaoSocial;
 };

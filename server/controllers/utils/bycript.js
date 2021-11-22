@@ -1,13 +1,13 @@
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  hashPassword: (userPassword, callback) => {
-    bcrypt.hash(userPassword, 10, (err, hash) => {
-      callback(err, hash);
+  hash: (hashingTarget, callback) => {
+    bcrypt.hash(hashingTarget, 10, (err, hashed) => {
+      callback(err, hashed);
     });
   },
-  decodePassword: (userPassword, hashedPassword, callback) => {
-    bcrypt.compare(userPassword, hashedPassword, (err, result) => {
+  decode: (receivedInfo, storedHashingInfo, callback) => {
+    bcrypt.compare(receivedInfo, storedHashingInfo, (err, result) => {
       callback(err, result);
     });
   },

@@ -23,7 +23,7 @@ app.use(
 //2. routes
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const kakaoRoutes = require("./routes/oauth/kakaoRoutes");
+const kakaoRoutes = require("./routes/kakaoRoutes");
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
@@ -58,26 +58,48 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
   });
 }
 
-let user;
-let social;
-
 db.sequelize
   .sync({ force: false, alter: true })
-  .then(() => {
-    //return db.User.create({});
-    return db.User.findOne({ where: { id: 3 } });
+  .then(async () => {
+    // await db.User.bulkCreate([{}, {}, {}]);
+    // await db.KakaoSocial.bulkCreate([
+    //   { email: "test1@c.a", nickname: "test1" },
+    //   { email: "test2@c.a", nickname: "test2" },
+    //   { email: "test3@c.a", nickname: "test3" },
+    // ]);
+
+    //const targetUser = await db.User.findOne({ where: { id: 2 } });
+    //console.log(await targetUser.getKakaoSocials({ where: { id: 1 } }));
+    //const allSocial = await targetUser.countKakaoSocials();
+    //await targetUser.addKakaoSocials(allSocial);
+    // const targetSocial = await db.KakaoSocial.findOne({ where: { id: 1 } });
+    // await targetUser.removeKakaoSocials(targetSocial);
+    // db.User.destroy({ where: { id: 1 } });
+    // const targetSocial = await db.KakaoSocial.findOne();
+    // await targetUser.setKakaoSocial(targetSocial);
+
+    //! for N:M practice
+    // await db.Customer.bulkCreate([
+    //   { customerName: "anderson1" },
+    //   { customerName: "anderson2" },
+    //   { customerName: "anderson3" },
+    // ]);
+    // await db.Product.bulkCreate([
+    //   { productName: "product1" },
+    //   { productName: "product2" },
+    //   { productName: "product3" },
+    // ]);
+
+    // const targetCustomer = await db.Customer.findOne({ where: { customerName: "anderson1" } });
+    // const targetProduct = await db.Product.findAll();
+    // await targetCustomer.addProducts(targetProduct);
+
+    // const targetProduct = await db.Product.findOne({ where: { productName: "product2" } });
+    // const targetUser = await db.Customer.findAll();
+    // await targetProduct.addCustomers(targetUser);
+
+    console.log("successfully initialized sequelize");
   })
-  .then((data) => {
-    //console.log(data);
-    user = data;
-    //return user.createSocial({ socialType: "kakao", email: "test5@c.a", nickname: "test5" });
-    return db.Social.findOne({ where: { id: 9 } });
-  })
-  .then((data) => {
-    social = data;
-    social.setUser(user);
-  })
-  .then(() => console.log("successfully initialized sequelize"))
   .catch((err) => console.log(err));
 
 // db.User.bulkCreate([{}, {}, {}]);
